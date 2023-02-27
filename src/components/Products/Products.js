@@ -9,7 +9,6 @@ const Products = (props) => {
     const [error, setError] = useState(null);
 
     const fetchProducts = useCallback(async () => {
-        console.log('fetchProducts');
         setIsLoading(true);
         setError(null);
         try {

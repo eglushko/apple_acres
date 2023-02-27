@@ -11,7 +11,7 @@ const Header = (props) => {
         <Fragment>
             <header className={classes.header}>
                 <h1>🍎 Sweet Apple Acres</h1>
-                <button className={classes.button}>
+                <button className={classes.button} onClick={props.onOpenCard}>
                     <span className={classes.icon}><img src={cartIcon} alt="Cart" /></span>
                     <span>Your Cart</span>
                     <span className={classes.badge}>0</span>
