@@ -4,7 +4,9 @@ const CartItem = (props) => {
   const price = (props.item.price * props.item.quantity).toFixed(2);
   return (
     <li className={classes['cart-item']}>
-        <img src={props.item.image} alt={props.item.name} />
+        <div className={classes['image-container']}>
+          <img src={props.item.image} alt={props.item.name} />
+        </div>
         <div className={classes.data}>
           <div className={classes.summary}>
             <h2 title={props.item.name}>{props.item.name}</h2>

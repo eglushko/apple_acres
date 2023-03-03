@@ -12,7 +12,7 @@ const Cart = (props) => {
     const placeOrderCall = 'https://sweet-apple-acres.netlify.app/.netlify/functions/api/orders';
 
     const addItemToCartHandler = (item) => {
-        cartCtx.addItem({...item, quantity:1})
+        cartCtx.addItem({...item, quantity: 1})
     };
     const removeItemFromCartHandler = (itemId, itemQuantity) => {
         cartCtx.removeItem(itemId, itemQuantity);
@@ -22,7 +22,6 @@ const Cart = (props) => {
             name: 'Etana Glushko',
             address: "Fluttershy's Cottage, The Edge of the Everfree Forest"
         };
-        console.log(cartCtx);
         const itemsToSend = cartCtx.cartItems.map(item => {
             return {
                 productId: item.id,
@@ -31,11 +30,10 @@ const Cart = (props) => {
         });
         const postData = {
             name: customer.name,
-            address: customer.address,
+            deliveryAddress: customer.address,
             items: itemsToSend
         };
-        console.log(postData);
-        //sendOrdersRequest(postData);
+        sendOrdersRequest(postData);
     
     };
 
@@ -48,20 +46,11 @@ const Cart = (props) => {
             }
         });
         const data = await response.json();
-        console.log(data);
-
-
-        // POST /.netlify/functions/api/orders
-
-        // {
-        //   "name": "Fluttershy",
-        //   "deliveryAddress": "Fluttershy's Cottage, The Edge of the Everfree Forest",
-        //   "items": [{
-        //     "productId": "b0cc414e-7a03-428c-81ae-5c472ca11cdc",
-        //     "quantity": 5
-        //   }]
-        // }
+        if (data) {
+            // todo: notify the customer
+        }
     }
+
     const mappedCartItems = cartCtx.cartItems.map(item => 
         <CartItem 
             key={item.id} 

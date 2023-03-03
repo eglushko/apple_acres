@@ -8,8 +8,6 @@ const ProductItemForm = (props) => {
     const [quantityIsValid, setQuantityIsValid] = useState(true);
     const formSubmitHandler = (e) => {
         e.preventDefault();
-        // console.log(e);
-        // console.log(quantityInputRef);
         const enteredQuantity = quantityInputRef.current.value;
         if (enteredQuantity.trim().length === 0 || enteredQuantity < 1) {
             setQuantityIsValid(false);
@@ -29,7 +27,7 @@ const ProductItemForm = (props) => {
                 defaultValue: '1'
                 }} />
             {!quantityIsValid && <p>Quantity is invalid.</p>}
-            <button>Add to Cart</button>
+            <button>Add <span className={classes.long}>to Cart</span></button>
         </form>
     );
 };

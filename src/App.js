@@ -19,15 +19,12 @@ const App = () => {
     setCartIsOpen(false);
   }
 
-  // const openProductPageHandler = ( => {})
-
   return (
     <CartProvider>
-      {cartIsOpen && <Cart onClose={closeCartHandler} />}
+      {cartIsOpen && <Cart onClose={closeCartHandler} />} 
       <Header onOpenCart={openCartHandler}></Header>
       <Products />
-      {/* <Products onOpenProductPage={openProductPageHandler} /> */}
-    </CartProvider>
+    </CartProvider> 
   );
 };
 

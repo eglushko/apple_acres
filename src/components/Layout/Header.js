@@ -13,7 +13,7 @@ const Header = (props) => {
     return (
         <Fragment>
             <header className={classes.header}>
-                <h1>🍎 Sweet Apple Acres</h1>
+                <h1>🍎 <span className={classes.title}>Sweet Apple Acres</span></h1>
                 <button className={classes.button} onClick={props.onOpenCart}>
                     <span className={classes.icon}><img src={cartIcon} alt="Cart" /></span>
                     <span>Your Cart</span>

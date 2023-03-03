@@ -66,12 +66,35 @@
 .form input {
     margin-top: 0.4rem;
 }
+
+.form input label {
+    margin-right: 0.5rem;
+}
   
 .form button {
     font: inherit;
-    padding: 0.25rem 1rem;
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.5rem;
     border-radius: 6px;
     font-weight: bold;
     white-space: nowrap;
     overflow: hidden;
+}
+
+.availability {
+    color: red;
+    margin: 1rem 0 1rem 0;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 300px) {
+    .product-item {
+        min-width: 200px;
+        margin: 0.4rem;
+    }  
+    
+    .long {
+        display: none;
+    }
 }

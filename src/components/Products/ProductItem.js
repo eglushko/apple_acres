@@ -8,18 +8,26 @@ const ProductItem = (props) => {
     const price = props.item.price.toFixed(2);
     const cartCtx = useContext(CartContext);
     const addToCartHandler = (quantity) => {
-        const item = props.item;
-        item.quantity = quantity;
-        cartCtx.addItem(item);
+        cartCtx.addItem({
+            id: props.item.id,
+            image: props.item.image,
+            name: props.item.name,
+            quantity: quantity,
+            price: props.item.price
+          });
+    };
+    const openProductPageHandler = () => {
+        props.onOpenProductPage(props.item);
     };
     return (
         <li className={classes['product-item']}>
-            <div className={classes['image-container']} onClick={props.onOpenProductPage}>
+            <div className={classes['image-container']} onClick={openProductPageHandler}>
                 <img src={props.item.image} alt={props.item.name} />
             </div>
-            <h3 onClick={props.onOpenProductPage}>{props.item.name}</h3>
+            <h3 onClick={openProductPageHandler}>{props.item.name}</h3>
             <div className={classes['product-item-price']}>${price}</div>
-            <ProductItemForm id={props.item.id} onAddToCart={addToCartHandler} />
+            {props.item.isAvailable && <ProductItemForm id={props.item.id} onAddToCart={addToCartHandler} />}
+            {!props.item.isAvailable && <div className={classes.availability}>Currently unavailable</div>}
         </li>
     );
 };

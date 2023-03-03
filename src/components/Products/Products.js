@@ -2,6 +2,7 @@
 import { useEffect, useState, useCallback, Fragment } from 'react';
 
 import ProductsList from './ProductsList';
+import ProductPage from './ProductPage';
 
 import classes from './Products.module.css';
 
@@ -10,8 +11,15 @@ const Products = (props) => {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const openProductPageHandler = () => {
-
+    const [productPageState, setProductPageState] = useState({
+        isOpen: false,
+        activeItem: null
+    });
+    const openProductPageHandler = (item) => {
+        setProductPageState({
+            isOpen: true,
+            activeItem: item
+        });
     };
 
     const fetchProducts = useCallback(async () => {
@@ -34,6 +42,14 @@ const Products = (props) => {
         fetchProducts();
     }, [fetchProducts]);
 
+    const closeProductPagetHandler = () => {
+        setProductPageState({
+            isOpen: false,
+            activeItem: null    
+        });
+    };
+
+
     let content = <p className={classes.message}>No products found.</p>;
     if (products.length > 0) {
         content = <ProductsList items={products}  onOpenProductPage={openProductPageHandler} />;
@@ -49,6 +65,9 @@ const Products = (props) => {
         
     return (
         <Fragment>
+            {productPageState.isOpen && <ProductPage 
+                item={productPageState.activeItem} 
+                onClose={closeProductPagetHandler} />}
             {content}
         </Fragment>
     );
