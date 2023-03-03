@@ -15,6 +15,11 @@
   justify-content: space-between;
 }
 
+.message {
+  padding: 3rem 12%;
+  font-size: 2rem;
+}
+
 @keyframes products-appear {
   from {
     opacity: 0;

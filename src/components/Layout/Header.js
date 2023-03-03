@@ -1,25 +1,25 @@
-import { Fragment } from 'react';
+import { Fragment, useContext } from 'react';
 
-import fruitImage from '../../assets/fruit.jpeg'
-import cartIcon from '../../assets/shopping-cart-icon-48.png'
-import classes from './Header.module.css'
+import cartIcon from '../../assets/shopping-cart-icon-48.png';
+import CartContext from '../../store/CartContext';
+import classes from './Header.module.css';
 
 
 const Header = (props) => {
-
+    const cartCtx = useContext(CartContext);
+    const numOfCartItems = cartCtx.cartItems.reduce((curNum, item) => {
+        return curNum + item.quantity;
+    }, 0);
     return (
         <Fragment>
             <header className={classes.header}>
                 <h1>🍎 Sweet Apple Acres</h1>
-                <button className={classes.button} onClick={props.onOpenCard}>
+                <button className={classes.button} onClick={props.onOpenCart}>
                     <span className={classes.icon}><img src={cartIcon} alt="Cart" /></span>
                     <span>Your Cart</span>
-                    <span className={classes.badge}>0</span>
+                    <span className={classes.badge}>{numOfCartItems}</span>
                 </button>
             </header>
-            {/* <div>
-                <img className={classes['header-image']} src={fruitImage} alt="Buy the best products here!" />
-            </div> */}
         </Fragment>
     );
 

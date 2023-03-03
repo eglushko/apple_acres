@@ -72,4 +72,6 @@
     padding: 0.25rem 1rem;
     border-radius: 6px;
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
 }

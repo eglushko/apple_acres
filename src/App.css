@@ -17,7 +17,6 @@ button {
     background-color: #83072c; 
     color: white;
     cursor: pointer;
-    font-weight: bold;
     border: solid 1px #2c0d00;
     border-radius: 8px; 
     font-weight: bold;
@@ -25,8 +24,10 @@ button {
 
 button:hover,
 button:active {
-    background-color: #641e03;
-    border-color: #2c0d00; 
+    /* background-color: #641e03; */
+    color: #83072c;
+    background-color: white;
+    border-color: #83072c; 
 }
 
   

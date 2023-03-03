@@ -1,38 +1,90 @@
+import { useContext } from 'react';
 import Modal from '../UI/Modal';
+import CartContext from '../../store/CartContext';
+import CartItem from './CartItem';
 
 import classes from './Cart.module.css';
 
 const Cart = (props) => {
+    const cartCtx = useContext(CartContext);
+    const totalAmount = cartCtx.totalAmount.toFixed(2);
+    const itemsInTheCart = cartCtx.cartItems.length > 0;
+    const placeOrderCall = 'https://sweet-apple-acres.netlify.app/.netlify/functions/api/orders';
 
-    const cartItems = [
-        {
-        "id":"1e780016-94ef-4063-9fbb-fbafbabb636e",
-        "name":"Crate of Corn",
-        "description":"Shucked full of love and TLC! You're gonna want a whole bunch of them!",
-        "image":"https://sweet-apple-acres.netlify.app/images/crate-of-corn.jpg",
-        "price":25,
-        "rating":4.8,
-        "releated":[],
-        "isAvailable":true
-        },
-        
-        {
-        "id":"1a264ead-e650-41f1-aa96-2b6efafa2011","name":"Crate of Grapes",
-        "description":"The sweetest darn grapes you ever did taste!",
-        "image":"https://sweet-apple-acres.netlify.app/images/crate-of-grapes.jpg","price":20,"rating":4.7,"releated":[],"isAvailable":true},{"id":"a712a0b4-1243-4890-9ca4-59778a7bb651","name":"Grape Jam","description":"Crushed by hoof, our sweetest darn grapes made into a jam.","image":"https://sweet-apple-acres.netlify.app/images/grape-jam.jpg","price":5,"rating":4.8,"releated":[],"isAvailable":true},{"id":"b0cc414e-7a03-428c-81ae-5c472ca11cdc","name":"Crate of Zap Apples","description":"Lighting infused apples.","image":"https://sweet-apple-acres.netlify.app/images/crate-of-zap-apples.jpg","price":49.99,"rating":4.2,"releated":[],"isAvailable":true},{"id":"d05ae50e-2918-4b8e-a006-ed83e9bdc8c8","name":"Zap Apple Jam","description":"Lighting infused apples, crushed by hoof into a jam. Ain't that someth'n else!","image":"https://sweet-apple-acres.netlify.app/images/zap-apple-jam.jpg","price":7,"rating":5,"releated":[],"isAvailable":true},{"id":"6dbf5cb7-828a-4375-8796-40d2cdfa532d","name":"Barrel of Apple Cider","description":"Apple cider season is here! Don't wait in line with no guarantee that we won't run out, get your online orders in today!","image":"https://sweet-apple-acres.netlify.app/images/barrel-of-cider.jpg","price":27.98,"rating":4.8,"releated":[],"isAvailable":true},{"id":"f19f13db-7e25-431b-9390-452c6fbdd3e6","name":"Crate of Carrots","description":"Who doesn't like a delicious carrot? ","image":"https://sweet-apple-acres.netlify.app/images/crate-of-carrots.jpg","price":12.2,"rating":4.8,"releated":[],"isAvailable":true},{"id":"b85be051-5faf-452d-bb4b-1b44d9440a9e","name":"Honey Jar","description":"Made by bees - nice ones mostly.","image":"https://sweet-apple-acres.netlify.app/images/honey-jar.jpg","price":3,"rating":3.3,"releated":[],"isAvailable":false}];
+    const addItemToCartHandler = (item) => {
+        cartCtx.addItem({...item, quantity:1})
+    };
+    const removeItemFromCartHandler = (itemId, itemQuantity) => {
+        cartCtx.removeItem(itemId, itemQuantity);
+    };
+    const  placeOrderHandler = () => {
+        const customer = {
+            name: 'Etana Glushko',
+            address: "Fluttershy's Cottage, The Edge of the Everfree Forest"
+        };
+        console.log(cartCtx);
+        const itemsToSend = cartCtx.cartItems.map(item => {
+            return {
+                productId: item.id,
+                quantity: item.quantity
+            };
+        });
+        const postData = {
+            name: customer.name,
+            address: customer.address,
+            items: itemsToSend
+        };
+        console.log(postData);
+        //sendOrdersRequest(postData);
+    
+    };
 
-    const mappedCartItems = cartItems.map(item => <li>{item.name}</li>);
+    async function sendOrdersRequest(postData) {
+        const response = await fetch(placeOrderCall, {
+            method: 'POST',
+            body: JSON.stringify(postData),
+            headers: {
+                'Content-Type': 'application/json'                
+            }
+        });
+        const data = await response.json();
+        console.log(data);
+
+
+        // POST /.netlify/functions/api/orders
+
+        // {
+        //   "name": "Fluttershy",
+        //   "deliveryAddress": "Fluttershy's Cottage, The Edge of the Everfree Forest",
+        //   "items": [{
+        //     "productId": "b0cc414e-7a03-428c-81ae-5c472ca11cdc",
+        //     "quantity": 5
+        //   }]
+        // }
+    }
+    const mappedCartItems = cartCtx.cartItems.map(item => 
+        <CartItem 
+            key={item.id} 
+            item={item} 
+            onAdd={addItemToCartHandler.bind(null, item)} 
+            onRemove={removeItemFromCartHandler.bind(null, item.id, 1)}
+            onRemoveItem={removeItemFromCartHandler.bind(null, item.id, item.quantity)}
+        />
+    );
+
     return (
         <Modal onClose={props.onClose}>
-            <h1>Shopping Cart</h1>
-            <ul className={classes['cart-items']}>{mappedCartItems}</ul>
+            <h1>{!itemsInTheCart && <span>Your </span>}Shopping Cart{!itemsInTheCart && <span> is empty.</span>}</h1>
+            <ul className={classes['cart-items']}>
+                {mappedCartItems}
+            </ul>
             <div className={classes.total}>
-                <span>Total:</span>
-                <span>32.45</span>
+                <span className={classes.text}>Total: </span>
+                <span>${totalAmount}</span>
             </div>
             <div className={classes.actions}>
                 <button onClick={props.onClose}>Close</button>
-                <button>Place order</button>
+                {itemsInTheCart && <button onClick={placeOrderHandler}>Place Order</button>}
             </div>
         </Modal>
     );

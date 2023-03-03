@@ -1,29 +1,33 @@
 import React from 'react';
-import { Fragment, useState } from 'react';
+import { useState } from 'react';
 
 import Cart from './components/Cart/Cart'
 import Header from './components/Layout/Header';
 import Products from './components/Products/Products';
+import CartProvider from './store/CartProvider';
 
 import './App.css';
 
 const App = () => {
   const [cartIsOpen, setCartIsOpen] = useState(false);
 
-  const openCardHandler = () => {
+  const openCartHandler = () => {
     setCartIsOpen(true);
   }
 
-  const closeCardHandler = () => {
+  const closeCartHandler = () => {
     setCartIsOpen(false);
   }
 
+  // const openProductPageHandler = ( => {})
+
   return (
-    <Fragment>
-      {cartIsOpen && <Cart onClose={closeCardHandler} />}
-      <Header onOpenCard={openCardHandler}></Header>
+    <CartProvider>
+      {cartIsOpen && <Cart onClose={closeCartHandler} />}
+      <Header onOpenCart={openCartHandler}></Header>
       <Products />
-    </Fragment>
+      {/* <Products onOpenProductPage={openProductPageHandler} /> */}
+    </CartProvider>
   );
 };
 
