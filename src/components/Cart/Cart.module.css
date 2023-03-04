@@ -24,9 +24,6 @@
 }
   
 .actions button {
-    font: inherit;
-    font-weight: bold;
-    cursor: pointer;
     padding: 0.5rem 2rem;
     margin: 0.2rem 0 0.2rem 1rem;
     white-space: nowrap;

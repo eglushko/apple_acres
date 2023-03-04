@@ -56,7 +56,6 @@
   
 .form {
     margin-top: 1rem;
-    text-align: right;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -72,13 +71,9 @@
 }
   
 .form button {
-    font: inherit;
     padding: 0.25rem 0.5rem;
     margin-left: 0.5rem;
     border-radius: 6px;
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
 }
 
 .availability {
