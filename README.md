@@ -1,4 +1,4 @@
-# Sweet Apple Acres application
+# 🍎 Sweet Apple Acres application
 This application is created as a coding exercise.
 
 Our friends Applejack, Big McIntosh, Apple Bloom, and Granny Smith over at the Sweet Apple Acres farm need your help to build an app so that their customers, as far away as Canterlot, can place bulk orders for produce.
