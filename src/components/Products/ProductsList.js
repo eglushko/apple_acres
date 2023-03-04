@@ -3,12 +3,14 @@ import ProductItem from './ProductItem';
 import classes from './Products.module.css';
 
 const ProductsList = (props) => {
-
-    // const mappedList = props.items.map(item => <li>{item.name}</li>);
+    const openProductPageHandler = (item) => {
+        props.onOpenProductPage(item);
+    };
     const mappedList = props.items.map((item) => (
         <ProductItem
             key={item.id}
             item={item}
+            onOpenProductPage={openProductPageHandler}
         />
     ));
 

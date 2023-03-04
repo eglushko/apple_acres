@@ -1,50 +1,77 @@
+// import classes from '*.module.css';
 import { useEffect, useState, useCallback, Fragment } from 'react';
 
 import ProductsList from './ProductsList';
+import ProductPage from './ProductPage';
+
+import classes from './Products.module.css';
 
 const Products = (props) => {
     const fetchProductsCall = 'https://sweet-apple-acres.netlify.app/.netlify/functions/api/products';
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [productPageState, setProductPageState] = useState({
+        isOpen: false,
+        activeItem: null
+    });
+    const openProductPageHandler = (item) => {
+        setProductPageState({
+            isOpen: true,
+            activeItem: item
+        });
+    };
 
     const fetchProducts = useCallback(async () => {
-        console.log('fetchProducts');
         setIsLoading(true);
         setError(null);
         try {
               fetch(fetchProductsCall)    
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
+                    setIsLoading(false);
                     setProducts(data);
                 });
         }
         catch (error) {
             setError(error.message);
         }
-        setIsLoading(false);
     }, []);
 
     useEffect(() => {
+        let isApiSubscribed = true;
         fetchProducts();
+        return () => {
+            isApiSubscribed = false;
+        }
     }, [fetchProducts]);
 
-    let content = <p>No products found.</p>;
+    const closeProductPagetHandler = () => {
+        setProductPageState({
+            isOpen: false,
+            activeItem: null    
+        });
+    };
+
+
+    let content = <p className={classes.message}>No products found.</p>;
     if (products.length > 0) {
-        content = <ProductsList items={products} />;
+        content = <ProductsList items={products}  onOpenProductPage={openProductPageHandler} />;
     }
     
     if (error) {
-        content = <p>{error}</p>;
+        content = <p className={classes.message}>{error}</p>;
     }
     
     if (isLoading) {
-        content = <p>Loading...</p>;
+        content = <div className={classes.message}>Loading...</div>;
     }
         
     return (
         <Fragment>
+            {productPageState.isOpen && <ProductPage 
+                item={productPageState.activeItem} 
+                onClose={closeProductPagetHandler} />}
             {content}
         </Fragment>
     );
