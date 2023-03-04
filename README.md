@@ -1,11 +1,23 @@
-# Rewards application
+# Sweet Apple Acres application
 This application is created as a coding exercise.
-A retailer offers a rewards program to its customers, awarding points based on each recorded purchase.
-A customer receives 2 points for every dollar spent over $100 in each transaction, plus 1 point for every dollar spent between $50 and $100 in each transaction.
-(e.g. a $120 purchase = 2x$20 + 1x$50 = 90 points).
-Given a record of every transaction during a three month period, calculate the reward points earned for each customer per month and total.
 
-This application is currently deployed here: [Rewards Application](http://3.227.8.130/rewards/)
+Our friends Applejack, Big McIntosh, Apple Bloom, and Granny Smith over at the Sweet Apple Acres farm need your help to build an app so that their customers, as far away as Canterlot, can place bulk orders for produce.
+
+They previously worked with a backend engineer to setup an API in GraphQL and REST.
+
+## Requirements
+Customers can call in their orders, so at a minimum, users of the app must be able to:
+
+* Browse a list of products
+* View product details
+
+## Optional
+And if there's time, the following features would be great to ship in the first release:
+
+* Add items to a shopping cart 🛒
+* Place an order
+
+This application is currently deployed here: [Sweet Apple Acres Application](http://3.227.8.130/sweet_apple_acres/)
 
 
 
