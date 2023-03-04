@@ -35,7 +35,10 @@ const ProductPage = (props) => {
                 <div className={classes.details}>
                     <div>{item.description}</div>
                 </div>
-                {props.item.isAvailable && <ProductItemForm id={props.item.id} onAddToCart={addToCartHandler} />}
+                <div className={classes.actions}>
+                    {props.item.isAvailable && <ProductItemForm id={props.item.id} onAddToCart={addToCartHandler} />}
+                    <button className={classes.close} onClick={props.onClose}>Close</button>
+                </div>
             </div>
         </Modal>
     );

@@ -74,10 +74,24 @@
     font-weight: bold;
 }
 
+.actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+}
+  
+.close {
+    padding: 0.25rem 1.9rem;
+    margin: 1rem 0 0 0.5rem;
+    border-radius: 6px;
+}
+
 @media only screen and (max-width: 600px) {
     .product {
-        width: 80%;
+        width: 90%;
         margin: 0 auto;
+        max-height: 83vh;
     }
 
     .image {
@@ -90,6 +104,11 @@
 
     .info {
         width: 100%;
+    }
+
+    .actions {
+        display: block;
+        text-align: right;
     }
     
 } 
