@@ -56,7 +56,6 @@
   
 .form {
     margin-top: 1rem;
-    /* text-align: right; */
     display: flex;
     flex-direction: row;
     justify-content: space-between;
