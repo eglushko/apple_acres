@@ -5,13 +5,13 @@ import classes from './Modal.module.css';
 
 const Backdrop = (props) => {
     return (
-        <div className={classes.backdrop} onClick={props.onClose}></div>
+        <div id="backdrop" className={classes.backdrop} onClick={props.onClose}></div>
     );
 };
 
 const ModalOverlay = (props) => {
     return (
-        <div className={classes.modal}>
+        <div id="modal" className={classes.modal}>
             <div className={classes.content}>{props.children}</div>
         </div>
     );

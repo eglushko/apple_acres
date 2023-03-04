@@ -1,8 +1,16 @@
-// import { render, screen } from '@testing-library/react';
-// import App from './App';
+import { render } from '@testing-library/react';
+import App from './App';
+import Header from './components/Layout/Header';
+import Products from './components/Products/Products';
 
-// test('renders learn react link', () => {
-//   render(<App />);
-//   const linkElement = screen.getByText(/learn react/i);
-//   expect(linkElement).toBeInTheDocument();
-// });
+describe('App component', () => {
+  test('Header component rendered properly', () => {
+    const tree = render(
+      <App>
+      <Header />
+      <Products />
+      </App>
+    ); 
+    expect(tree).toMatchSnapshot();
+  });
+});

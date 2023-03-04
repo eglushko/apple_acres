@@ -39,7 +39,11 @@ const Products = (props) => {
     }, []);
 
     useEffect(() => {
+        let isApiSubscribed = true;
         fetchProducts();
+        return () => {
+            isApiSubscribed = false;
+        }
     }, [fetchProducts]);
 
     const closeProductPagetHandler = () => {
