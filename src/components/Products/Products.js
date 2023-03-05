@@ -1,4 +1,3 @@
-// import classes from '*.module.css';
 import { useEffect, useState, useCallback, Fragment } from 'react';
 
 import ProductsList from './ProductsList';
@@ -25,6 +24,7 @@ const Products = (props) => {
     const fetchProducts = useCallback(async () => {
         setIsLoading(true);
         setError(null);
+
         try {
               fetch(fetchProductsCall)    
                 .then((res) => res.json())
@@ -46,7 +46,7 @@ const Products = (props) => {
         }
     }, [fetchProducts]);
 
-    const closeProductPagetHandler = () => {
+    const closeProductPageHandler = () => {
         setProductPageState({
             isOpen: false,
             activeItem: null    
@@ -71,7 +71,7 @@ const Products = (props) => {
         <Fragment>
             {productPageState.isOpen && <ProductPage 
                 item={productPageState.activeItem} 
-                onClose={closeProductPagetHandler} />}
+                onClose={closeProductPageHandler} />}
             {content}
         </Fragment>
     );
